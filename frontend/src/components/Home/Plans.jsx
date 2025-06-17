@@ -1,4 +1,3 @@
-import React from 'react'
 import PlanCard from './PlanCard.jsx'
 
 function Plans() {
@@ -9,7 +8,6 @@ function Plans() {
                 <h2 className="text-3xl font-semibold mb-8">Choose Your Plan</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                    {/* { heading, desc, points, cost } */}
                     <PlanCard
                         heading="Free"
                         desc="Start tracking your finances today with limited features."

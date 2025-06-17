@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import axios from "axios";
 
-function ExpenseTracker({ onExpenseAdded }) {  // Accept onExpenseAdded as a prop
+function ExpenseTracker({ onExpenseAdded }) { 
     const [expenseName, setExpenseName] = useState('');
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent page reload
+        e.preventDefault(); 
 
         if (!expenseName || !category || !price) {
             alert('Please fill in all fields!');
@@ -18,20 +18,18 @@ function ExpenseTracker({ onExpenseAdded }) {  // Accept onExpenseAdded as a pro
             const response = await axios.post('/api/v1/expense/add-expense', {
                 expenseName,
                 category,
-                price: parseFloat(price),  // Convert price to a number
+                price: parseFloat(price),  
             });
-            // Reset the form after submission
+        
             setExpenseName('');
             setCategory('');
             setPrice('');
 
-            // Refresh the expenses list in Dashboard
             if (onExpenseAdded) {
                 onExpenseAdded();
             }
         } catch (error) {
             console.error('Error adding expense:', error);
-            // ('There was an error adding the expense.');
         }
     };
 
@@ -93,8 +91,6 @@ function ExpenseTracker({ onExpenseAdded }) {  // Accept onExpenseAdded as a pro
                         >
                             Add Expense
                         </button>
-
-
                     </div>
                 </form>
             </div>

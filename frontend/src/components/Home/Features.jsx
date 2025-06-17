@@ -1,4 +1,3 @@
-import React from 'react';
 import intro from "../../assets/intro.jpg";
 import FeatureCard from "./FeatureCard.jsx"
 

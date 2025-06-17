@@ -1,5 +1,3 @@
-import React from 'react';
-
 function FeatureCard({ index, heading, desc, image_url }) {
     return (
         <div className="group relative bg-gray-800 p-6 rounded-lg shadow-lg transition-all duration-300 

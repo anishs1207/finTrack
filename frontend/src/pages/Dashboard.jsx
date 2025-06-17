@@ -15,8 +15,6 @@ function Dashboard() {
                     withCredentials: true,
                 });
 
-                console.log('Dashboard session data:', data?.data?.user);
-
                 if (data?.data?.user) {
                     setUser(data.data.user);
                 } else {
@@ -33,12 +31,8 @@ function Dashboard() {
 
     const fetchExpenses = useCallback(async () => {
         try {
-            console.log("Fetching expenses...");
             const response = await axios.get("/api/v1/expense/get-expenses");
-            console.log(response)
-            console.log("tested")
             setExpenses(response.data.data);
-            console
         } catch (error) {
             console.error("Error fetching expenses:", error);
         }
@@ -54,8 +48,6 @@ function Dashboard() {
             fetchExpenses();
         }
     }, [user, fetchExpenses]);
-
-
 
     return (
         <>

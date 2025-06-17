@@ -1,19 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-// import ExpenseTracker from './ExpenseTracker.jsx';
+import { useState, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
-
     const [authenticated, setAuthenticated] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [editedExpense, setEditedExpense] = useState({});
     const navigate = useNavigate();
-    const [newExpense, setNewExpense] = useState({
-        expenseName: "",
-        price: "",
-        category: "",
-        date: "",
-    });
 
     const [sortField, setSortField] = useState(false);
     const [sortOrder, setSortOrder] = useState(null);
@@ -52,51 +45,19 @@ function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
         return "▲▼";
     };
 
-
-    // Authentication Check
-    // useEffect(() => {
-    //     const token = localStorage.getItem('accessToken');
-    //     if (!token) {
-    //         navigate('/login');
-    //         setAuthenticated(false);
-    //     } else {
-    //         setAuthenticated(true);
-    //     }
-    // }, [navigate]);
-
-    // Fetch Expenses
-    // const fetchExpenses = useCallback(async () => {
-    //     try {
-    //         const response = await axiosInstance.get("/api/v1/expense/get-expenses", {
-    //             headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-    //         });
-    //         setExpenses(response.data.data);
-    //     } catch (error) {
-    //         console.error("Error fetching expenses:", error);
-    //     }
-    // }, []);
-
     useEffect(() => {
         if (authenticated) fetchExpenses();
     }, [authenticated, fetchExpenses]);
 
-    // Handle Input Change for New Expense
-    const handleNewExpenseChange = (e) => {
-        setNewExpense(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    };
-
-    // Handle Input Change for Edited Expense
     const handleEditedExpenseChange = (e) => {
         setEditedExpense(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    // Handle Edit Click
     const handleEditClick = (expense) => {
         setEditingIndex(expense._id);
         setEditedExpense({ ...expense });
     };
 
-    // Update Expense
     const handleUpdateExpense = async () => {
         try {
             await axios.put(`/api/v1/expense/update-expense/${editedExpense._id}`, editedExpense, {
@@ -111,7 +72,6 @@ function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
         }
     };
 
-    // Delete Expense
     const handleDeleteExpense = async (expenseId) => {
         if (!window.confirm("Are you sure you want to delete this expense?")) return;
 
@@ -126,7 +86,6 @@ function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
         }
     };
 
-    // Format Date Function
     function formatDateFromISO(isoDate) {
         return new Date(isoDate).toLocaleDateString("en-IN", {
             day: "2-digit",
@@ -154,7 +113,6 @@ function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
                             {sortedExpenses.length > 0 ? (
                                 sortedExpenses.map((expense, index) => (
                                     <tr key={index} className="border-b border-gray-700 pt-0">
-                                        {/* Expense Name */}
                                         <td className="px-4 py-2">
                                             {editingIndex === expense._id ? (
                                                 <input
@@ -169,7 +127,6 @@ function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
                                             )}
                                         </td>
 
-                                        {/* Amount */}
                                         <td className=" m-0 px-4 py-2">
                                             {editingIndex === expense._id ? (
                                                 <input
@@ -204,7 +161,6 @@ function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
                                         </td>
 
 
-                                        {/* Date */}
                                         <td className="px-4 py-2">
                                             {editingIndex === expense._id ? (
                                                 <input
@@ -219,7 +175,6 @@ function ExpenseList({ fetchExpenses, expenses, setExpenses }) {
                                             )}
                                         </td>
 
-                                        {/* Actions */}
                                         <td className=" px-4 py-2">
                                             {editingIndex === expense._id ? (
                                                 <button

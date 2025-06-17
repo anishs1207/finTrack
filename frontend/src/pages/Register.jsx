@@ -8,7 +8,7 @@ function Register() {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false); // 👈 New state for password visibility
+    const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ function Register() {
                 { withCredentials: true }
             );
 
-            console.log(data);
+           
 
             if (data.message == "User Already Exists") {
                 setErrorMsg("User Already Exitsts")
@@ -129,7 +129,7 @@ function Register() {
                                 id="password"
                                 className="w-full px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-12"
                             />
-                            {/* 👀 Eye Icon for Toggle */}
+                        
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}

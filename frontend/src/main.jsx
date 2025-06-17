@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
-import './index.css';
 import { Route } from "react-router-dom";
 import { createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
+import './index.css';
 
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
@@ -13,7 +13,6 @@ import {Layout} from "./components/Structure";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="home" element={<Home />} />

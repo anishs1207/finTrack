@@ -13,7 +13,6 @@ function Login() {
     useEffect(() => {
         const checkSession = async () => {
             try {
-                console.log("Checking session...");
                 const { data } = await axios.get("/api/v1/user/session", {
                     withCredentials: true,
                 });
@@ -49,11 +48,7 @@ function Login() {
                 },
                 { withCredentials: true }
             );
-
-            console.log(data);
-
             navigate("/dashboard");
-            console.log("done")
         } catch (err) {
             console.error("Login error:", err);
             setErrorMsg(err.response?.data?.message || "Login failed");

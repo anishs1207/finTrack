@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import logo from "../../assets/final_logo.png";
@@ -100,7 +100,6 @@ function Header({ login, logout, register }) {
                         <Link to="/contact-us" className={`block py-2 text-lg font-semibold ${getNavLinkClass("/contact-us")}`} onClick={toggleMenu}>
                             Contact Us
                         </Link>
-                        {/* for register/login & singup & logout */}
 
                         {register && (
                             <Link
@@ -140,7 +139,6 @@ function Header({ login, logout, register }) {
                 </>
             )}
 
-            {/* Auth Buttons */}
             <div className="hidden lg:block flex">
                 {register && (
                     <Link

@@ -4,7 +4,6 @@ import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResonse.js";
 import jwt from "jsonwebtoken";
 
-
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
         const user = await User.findById(userId);
@@ -27,18 +26,8 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
 }
 
-//testing 
-// {
-//     "fullName": "Anish Sabharwal",
-//     "email": "anishs1207@gmail.com",
-//     "password": "123456",
-//     "username": "anish"
-
-//  }
-
 const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, username, password } = req.body;
-    console.log(fullName, email);
 
     if ([fullName, email, username, password].some((field) => field?.trim() == "")) {
         throw new ApiError(400, "All fields are required")
@@ -61,8 +50,6 @@ const registerUser = asyncHandler(async (req, res) => {
         username: username.toLowerCase(),
     })
 
-
-    // const createdUser = await User.findById(user._id).select("-password -refreshToken");
     const createdUser = await User.findById(user._id).select('username email fullName createdAt updatedAt');
 
     if (!createdUser) throw new ApiError(500, "Something Went Wrong Registering the User");
@@ -76,22 +63,6 @@ const registerUser = asyncHandler(async (req, res) => {
         .cookie("refreshToken", refreshToken, options)
         .json(new ApiResponse(200, createdUser, "User Registered Sucessfully"))
 })
-
-//createduser
-// {
-//     "statusCode": 200,
-//     "data": {
-//         "_id": "679e1f3a247eb6a470d6cf17",
-//         "username": "an",
-//         "email": "a",
-//         "fullName": "Anish Sabharwal",
-//         "createdAt": "2025-02-01T13:18:50.934Z",
-//         "updatedAt": "2025-02-01T13:18:50.934Z",
-//         "__v": 0
-//     },
-//     "message": "User Registered Sucessfully",
-//     "success": true
-// }
 
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -118,9 +89,6 @@ const loginUser = asyncHandler(async (req, res) => {
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
         .json(new ApiResponse(200, { user: loggedInUser, accessToken, refreshToken }, "User Logged in Successfully"));
-
-
-
 })
 
 
@@ -134,8 +102,6 @@ const logoutUser = asyncHandler(async (req, res) => {
         .clearCookie("accessToken", options)
         .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, null, "User Logged Out"))
-
-
 })
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
@@ -164,7 +130,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
         throw new ApiError(401, error?.message || "Invalid Refresh Token");
 
     }
-
 })
 
 const getUserSession = asyncHandler(async (req, res) => {
